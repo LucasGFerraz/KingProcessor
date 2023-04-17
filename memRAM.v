@@ -8,7 +8,10 @@ module memRAM
 	input [15:0] const,
 	input MemWrite, clock, sys_clock,
 	output reg [31:0] carregado,
-	input [4:0] instrucao);
+	input [4:0] instrucao,
+	input Load,
+	input Imm,
+	input [31:0] estendido);
 	
 	integer addr;
 
@@ -19,7 +22,9 @@ module memRAM
 		addr = instrucao + const;
 		// Write
 		if (MemWrite)
+		begin
 			ram[addr] = data;
+		end
 		
 		
 	end
@@ -27,7 +32,17 @@ module memRAM
 	begin
 		addr = instrucao + const;
 		// Read 
-		carregado = ram[addr];
+		if(Load)
+		begin
+			if (Imm)
+			begin
+				carregado = estendido;
+			end
+			else
+			begin
+				carregado = ram[addr];
+			end
+		end
 	end
 
 endmodule

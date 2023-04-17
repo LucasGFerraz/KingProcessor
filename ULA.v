@@ -36,25 +36,33 @@ begin
 				else Resultado = Lido1 - Lido2;
 			end
 	
-			2: //MULT2
+			2: //MULT
 			begin
-				Resultado = Lido1 * 2;
+				Resultado = Lido1 * Lido2;
 			end
 	
-			3: //DIV2
+			3: //DIV
 			begin
-				Resultado = Lido1 / 2;
+				Resultado = Lido1 / Lido2;
 			end
 	
 	
 			4: //AND
 			begin
-				Resultado = Lido1 & Lido2;
+				if (Imm)
+				begin
+					Resultado = Lido1 & estendido;
+				end
+				else Resultado = Lido1 & Lido2;
 			end
 	
 			5: //OR
 			begin
-				Resultado = Lido1 | Lido2;
+				if (Imm)
+				begin
+					Resultado = Lido1 | estendido;
+				end
+				else Resultado = Lido1 | Lido2;
 			end
 	
 	
@@ -119,6 +127,20 @@ begin
 			10:
 			begin
 				True = 1;
+			end
+			
+			11:
+			begin
+				Resultado = Lido1 << Lido2;
+			end
+			
+			12:
+			begin
+				Resultado = Lido1 >> Lido2;
+			end
+			
+			13:
+			begin
 			end
 	
 		endcase

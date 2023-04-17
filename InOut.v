@@ -1,9 +1,9 @@
-module InOut (input sys_clock, input IO, input reset,
+module InOut (input sys_clock, input [1:0] IO, input reset,
 				  input [31:0] saida, output reg [6:0] display0,
 				  output reg [6:0] display1, output reg [6:0] display2, 
 				  output reg [6:0] display3, output reg [6:0] display4,
 				  output reg [6:0] display5, output reg [6:0] display6,
-				  output reg [6:0] display7);
+				  output reg [6:0] display7, output reg [15:0] entrada);
 				  
 //apesar do processador ser elaborado para suportar dados de 32 bits,
 //o kit FPGA trablhado apresenta uma limitação de 7 displays de 7 segmentos.
@@ -44,7 +44,7 @@ begin
 		display6 <= 7'b100_0000;
 		display7 <= 7'b100_0000;
 	end
-	else if (IO)
+	else if (IO==2)
 	begin
 		SetDisplay((saida[31:0]/10000000)%10, display7);
 		SetDisplay((saida[31:0]/1000000)%10, display6);
@@ -54,6 +54,10 @@ begin
 		SetDisplay((saida[31:0]/100)%10, display2);
 		SetDisplay((saida[31:0]/10)%10, display1);
 		SetDisplay((saida[31:0])%10, display0);
+	end
+	else if (IO==1)
+	begin
+		
 	end
 end
 endmodule
